@@ -29,6 +29,6 @@ spec:
     spec:
       containers:
       - name: web
-        image: meetagoyal/popcorn:10
+        image: meetagoyal/popcorn:$BUILD_NUMBER
         ports:
         - containerPort: 3333
