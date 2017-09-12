@@ -11,17 +11,20 @@ pipeline {
         sh 'echo "hello world"'
       }
     }
-    stage('testing') {
-      steps {
-        sh 'run rails test'
-      }
-    }
+    
     
     stage('build docker/add container') {
       steps {
         sh 'docker build -t meetagoyal/popcorn:$BUILD_NUMBER .'
       }
     }
+    
+    stage('testing') {
+      steps {
+        sh '''docker run meetagoyal/popcorn:$BUILD_NUMBER rails test'''
+      }
+    }
+    
     stage('docker push') {
       steps {
         sh '''docker login -u meetagoyal -p $Docker_password
